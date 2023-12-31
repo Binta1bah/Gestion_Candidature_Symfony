@@ -47,6 +47,12 @@ security:
     - { path: ^/api/login, roles: PUBLIC_ACCESS }
     # - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
     - { path: ^/api/formation/new, roles: ROLE_ADMIN }
+    - { path: "^/api/formation/update/{id}", roles: ROLE_ADMIN }
+    - { path: "^/api/formation/detete/{id}", roles: ROLE_ADMIN }
+    - { path: "^/api/candidature/accepter/{id}", roles: ROLE_ADMIN }
+    - { path: "^/api/candidature/refuser/{id}", roles: ROLE_ADMIN }
+    - { path: ^/api/candidature/new, roles: ROLE_USER }
+
     # - { path: ^/api/formation/update/{id}, roles: ROLE_ADMIN }
     # - { path: ^/profile, roles: ROLE_USER }
 

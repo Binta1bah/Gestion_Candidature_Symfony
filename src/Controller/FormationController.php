@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/api', name: 'api_')]
 class FormationController extends AbstractController
@@ -74,6 +75,7 @@ class FormationController extends AbstractController
     }
 
     #[Route('/formation/update/{id}', name: 'formation_update', methods: "PUT")]
+    #[IsGranted('ROLE_ADMIN', message: 'Accès refusé. Vous n\'avez pas les autorisations nécessaires.')]
     public function update($id, ManagerRegistry $doctrine, Request $request): JsonResponse
     {
         $em = $doctrine->getManager();
@@ -133,6 +135,7 @@ class FormationController extends AbstractController
      * @Route("/formations/{id}", name="formation_delete", methods={"DELETE"})
      */
     #[Route('/formation/delete/{id}', name: 'formation_delete', methods: ['DELETE'])]
+    #[IsGranted('ROLE_ADMIN', message: 'Accès refusé. Vous n\'avez pas les autorisations nécessaires.')]
     public function delete($id, ManagerRegistry $doctrine): JsonResponse
     {
         $em = $doctrine->getManager();

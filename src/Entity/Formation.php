@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FormationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FormationRepository::class)]
@@ -28,10 +30,14 @@ class Formation
     #[ORM\Column]
     private \DateTimeImmutable $created_at;
 
+    #[ORM\OneToMany(mappedBy: 'Formation', targetEntity: Candidature::class)]
+    private Collection $candidatures;
+
     public function __construct()
     {
         $this->created_at = new \DateTimeImmutable();
         $this->is_clotured = 0;
+        $this->candidatures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,6 +101,36 @@ class Formation
     public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidature>
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->candidatures;
+    }
+
+    public function addCandidature(Candidature $candidature): static
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures->add($candidature);
+            $candidature->setFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): static
+    {
+        if ($this->candidatures->removeElement($candidature)) {
+            // set the owning side to null (unless already changed)
+            if ($candidature->getFormation() === $this) {
+                $candidature->setFormation(null);
+            }
+        }
 
         return $this;
     }
