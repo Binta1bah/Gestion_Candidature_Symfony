@@ -18,6 +18,10 @@ security:
         success_handler: lexik_jwt_authentication.handler.authentication_success
         failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
+    # logout:
+    #         path: /api/logout
+    #         success_handler: lexik_jwt_authentication.handler.logout_success
+
     api:
       pattern: ^/api
       stateless: true
@@ -41,8 +45,9 @@ security:
   access_control:
     - { path: ^/api/register, roles: PUBLIC_ACCESS }
     - { path: ^/api/login, roles: PUBLIC_ACCESS }
-    - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
-    # - { path: ^/admin, roles: ROLE_ADMIN }
+    # - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/api/formation/new, roles: ROLE_ADMIN }
+    # - { path: ^/api/formation/update/{id}, roles: ROLE_ADMIN }
     # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -62,4 +63,16 @@ class UserController extends AbstractController
             ]
         ]);
     }
+
+    // #[Route('/logout', name: 'logout', methods: 'post')]
+    // public function logout(Request $request, Security $security)
+    // {
+    //     // Notez que cette méthode peut être vide car elle ne sera pas utilisée.
+    //     // Symfony interceptera la demande avant qu'elle n'atteigne cette méthode.
+
+    //     // Vous pouvez ajouter du code ici si nécessaire, par exemple, pour déconnecter
+    //     // l'utilisateur de la session Symfony.
+
+    //     return new JsonResponse(['message' => 'Déconnexion réussie.']);
+    // }
 }
