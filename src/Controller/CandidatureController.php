@@ -71,6 +71,7 @@ class CandidatureController extends AbstractController
     }
 
     #[Route('/candidature/accepter/{id}', name: 'candidature_accepter', methods: "PUT")]
+    #[IsGranted('ROLE_ADMIN', message: 'Accès refusé. Vous n\'avez pas les autorisations nécessaires.')]
     public function accepter($id, ManagerRegistry $doctrine, Request $request): JsonResponse
     {
         // Vérifier si l'utilisateur a le rôle requis
@@ -97,7 +98,7 @@ class CandidatureController extends AbstractController
         ]);
     }
 
-    #[Route('/candidature/refuser/{id}', name: 'candidature_accepter', methods: "PUT")]
+    #[Route('/candidature/refuser/{id}', name: 'candidature_refuser', methods: "PUT")]
     #[IsGranted('ROLE_ADMIN', message: 'Accès refusé. Vous n\'avez pas les autorisations nécessaires.')]
     public function refuser($id, ManagerRegistry $doctrine): JsonResponse
     {

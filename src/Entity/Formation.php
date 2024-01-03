@@ -2,12 +2,56 @@
 
 namespace App\Entity;
 
-use App\Repository\FormationRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Post;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Flex\Unpack\Operation;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use App\Controller\FormationController;
+use App\Repository\FormationRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: FormationRepository::class)]
+#[ApiResource(
+    operations: [
+        new Get(
+            name: 'liste_formation',
+            uriTemplate: '/formations',
+            controller: FormationController::class . '::index',
+            description: 'Cet endpoint permet de listes les formations',
+            read: false,
+            deserialize: false
+        ),
+        new Post(
+            name: 'formation_new',
+            uriTemplate: 'formation/new',
+            controller: FormationController::class . '::new',
+            description: 'Cet endpoint permet d\'ajouter une formation',
+            read: false,
+            deserialize: false
+        ),
+        new Put(
+            name: 'formation_update',
+            uriTemplate: '/formation/update/{id}',
+            controller: FormationController::class . '::update',
+            description: 'Cet endpoint permet de modifier une formation',
+            read: false,
+            deserialize: false
+        ),
+        new Delete(
+            name: 'formation_delete',
+            uriTemplate: '/formation/delete/{id}',
+            controller: FormationController::class . '::delete',
+            description: 'Cet endpoint permet de supprimer une formation',
+            read: false,
+            deserialize: false
+        ),
+
+    ]
+)]
 class Formation
 {
     #[ORM\Id]

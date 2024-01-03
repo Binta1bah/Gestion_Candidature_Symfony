@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+
 #[Route('/api', name: 'api_')]
 class UserController extends AbstractController
 {
@@ -23,7 +24,9 @@ class UserController extends AbstractController
         ]);
     }
 
+
     #[Route('/register', name: 'register', methods: 'post')]
+    
     public function register(ManagerRegistry $doctrine, Request $request, UserPasswordHasherInterface $passwordHasher): JsonResponse
     {
         $em = $doctrine->getManager();
